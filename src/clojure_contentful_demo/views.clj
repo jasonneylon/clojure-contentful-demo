@@ -2,9 +2,7 @@
   (:require [hiccup.core :refer :all]
             [hiccup.page :refer [html5]]))
 
-
-
-(defn- navbar []
+(def navbar 
 	[:nav
 	 [:div.nav-wrapper.container
 		[:a {:href "#" :class "brand-logo left"} "Contentful demo"]
@@ -13,12 +11,12 @@
 (defn- page [content]
   (html5 
     [:head
-		 [:title "Contentful Clojure Demo"]
+     [:title "Contentful Clojure Demo"]
      [:meta {:name "viewport" :content "width=device-width, initial-scale=1, maximum-scale=1.0"}]
      [:link {:href"https://fonts.googleapis.com/icon?family=Material+Icons" :rel "stylesheet"}]
      [:link {:rel "stylesheet" :href "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"}] ]
     [:body
-     (navbar)
+     navbar
      content 
      [:script {:src "https://code.jquery.com/jquery-2.1.1.min.js"}]
      [:script {:src "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"}]]))
@@ -27,7 +25,7 @@
   (html5 
     (page 
       [:div.container
-       [:h1.header.center "Products"]
+       [:h1.header.center {:class "blue-text"} "Products"]
        [:div.row
          (for [{:keys [image-url productName productDescription price slug tags] :as product} products
 							 :let [product-url (str "/products/" slug)]]
