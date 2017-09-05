@@ -6,10 +6,16 @@
 (def space-id "ic8pqmnpu6nu")
 (def access-token "c6f70ac17e67187fa3a1758e59b13ed84c41f7a43c11585cdb0f0d0b6ad5a0c0")
 (def base-url "https://cdn.contentful.com/spaces/")
+(def product-content-type "2PqfXUJwE8qSYKuM0U6w8M")
 (def options {:headers {"Authorization" (str "Bearer " access-token)}})
 
 (defn- map->query-string [m]
-	(s/join "&" (map (fn [[k v]] (str (s/replace (name k) "-" "_") "=" v) ) m)))
+	(s/join 
+    "&" 
+    (map 
+      (fn [[k v]] 
+        (str (s/replace (name k) "-" "_") "=" v)) 
+      m)))
 
 (defn- get-id [sys-map]
   (get-in sys-map [:sys :id]))
@@ -34,10 +40,9 @@
     (parse-string (:body response) true)))
 
 (defn get-products []
-  (let [entries (get-entries {:content-type "2PqfXUJwE8qSYKuM0U6w8M"}) ]
+  (let [entries (get-entries {:content-type product-content-type}) ]
     (entries->product entries)))
 
 (defn get-product [slug]
-  (let [entries (get-entries {:content-type "2PqfXUJwE8qSYKuM0U6w8M" :fields.slug slug}) ]
+  (let [entries (get-entries {:content-type product-content-type :fields.slug slug})]
     (first (entries->product entries))))
-

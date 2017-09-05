@@ -71,4 +71,3 @@
 							[:div.chip tag])]]
 					[:div.card-action
 					 [:a {:href website} "Buy"]]]]]]])))
-
